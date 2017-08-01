@@ -7,9 +7,15 @@
 //
 
 import UIKit
-
+import MapKit
 class ViewController: UIViewController {
 
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var lonLabel: UILabel!
+    @IBOutlet weak var latLabel: UILabel!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +26,13 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func didTouchMap(_ sender: UILongPressGestureRecognizer) {
+        
+         let position = sender.location(in: mapView)
+        
+        let coord = mapView.convert(position, toCoordinateFrom: mapView)
+        print(coord)
+    }
+    
 }
 
