@@ -39,7 +39,7 @@ class PokenTableTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let pok = pokemons[indexPath.row]
         cell.textLabel?.text = pok.name
-        
+        cell.imageView?.image = pok.getImage()
                 
         
         return cell
@@ -53,9 +53,10 @@ class PokenTableTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "pokDetail" {
-            let vc = segue.destination as! ViewController
+            //PokemonDetailViewController
+            let vc = segue.destination as! PokemonDetailViewController
             let poke = sender as! PokemonList
-            vc.pokemonDetail = poke.name
+            vc.pokemonDetail = poke
         }
     }
     /*

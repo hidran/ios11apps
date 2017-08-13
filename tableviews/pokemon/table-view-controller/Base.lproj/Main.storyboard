@@ -11,9 +11,6 @@
         <array key="MarkerFeltThin.ttf">
             <string>MarkerFelt-Thin</string>
         </array>
-        <array key="PingFang.ttc">
-            <string>PingFangHK-Regular</string>
-        </array>
     </customFonts>
     <scenes>
         <!--Pokémon list-->
@@ -25,17 +22,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="Dqb-nP-Nxk" style="IBUITableViewCellStyleDefault" id="sCH-f5-TIA">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="dTK-Is-0y4" style="IBUITableViewCellStyleDefault" id="sCH-f5-TIA">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" tableViewCell="sCH-f5-TIA" id="Whr-6R-Vfh">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dqb-nP-Nxk">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dTK-Is-0y4">
                                             <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="26"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -59,10 +56,10 @@
             </objects>
             <point key="canvasLocation" x="-215.19999999999999" y="-330.58470764617692"/>
         </scene>
-        <!--View Controller-->
+        <!--Pokemon Detail View Controller-->
         <scene sceneID="SK8-f8-oFC">
             <objects>
-                <viewController id="hVE-3e-gKN" customClass="ViewController" customModule="table_view_controller" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hVE-3e-gKN" customClass="PokemonDetailViewController" customModule="table_view_controller" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="I6i-nU-cQW"/>
                         <viewControllerLayoutGuide type="bottom" id="NYX-O6-r7e"/>
@@ -71,26 +68,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POKEMON NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBH-QD-uG7">
-                                <rect key="frame" x="79" y="317" width="217" height="34"/>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="31"/>
-                                <color key="textColor" red="0.40497502671309915" green="1" blue="0.20687886442189729" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tOw-Bx-yQJ">
+                                <rect key="frame" x="113" y="104" width="150" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POKEMON NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBH-QD-uG7">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="70"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="31"/>
+                                        <color key="textColor" red="0.40497502671309915" green="1" blue="0.20687886442189729" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mex-pt-bF2">
+                                        <rect key="frame" x="48" y="80" width="54" height="70"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="9hc-p8-edR"/>
+                                    <constraint firstItem="yBH-QD-uG7" firstAttribute="leading" secondItem="tOw-Bx-yQJ" secondAttribute="leading" id="HCV-ou-YkQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="yBH-QD-uG7" secondAttribute="trailing" id="L38-ab-UAf"/>
+                                    <constraint firstAttribute="height" constant="150" id="cSh-aw-rB2"/>
+                                    <constraint firstItem="yBH-QD-uG7" firstAttribute="top" secondItem="tOw-Bx-yQJ" secondAttribute="top" id="oFk-1c-koD"/>
+                                    <constraint firstItem="mex-pt-bF2" firstAttribute="leading" secondItem="tOw-Bx-yQJ" secondAttribute="leading" constant="48" id="sHF-oZ-nK8"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="yBH-QD-uG7" firstAttribute="centerX" secondItem="Tmx-di-LlZ" secondAttribute="centerX" id="G6c-sq-O1b"/>
-                            <constraint firstItem="yBH-QD-uG7" firstAttribute="centerY" secondItem="Tmx-di-LlZ" secondAttribute="centerY" id="LcC-xS-Tjz"/>
+                            <constraint firstItem="tOw-Bx-yQJ" firstAttribute="centerX" secondItem="Tmx-di-LlZ" secondAttribute="centerX" id="FfF-tG-zEW"/>
+                            <constraint firstItem="tOw-Bx-yQJ" firstAttribute="top" secondItem="I6i-nU-cQW" secondAttribute="bottom" constant="40" id="KhM-ER-0ge"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="pokImg" destination="mex-pt-bF2" id="Ozh-tU-1pg"/>
                         <outlet property="pokemonName" destination="yBH-QD-uG7" id="Exz-6s-MxL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1hz-mu-KuA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1255" y="-609"/>
+            <point key="canvasLocation" x="1252" y="-611.24437781109452"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gun-Xj-QaW">

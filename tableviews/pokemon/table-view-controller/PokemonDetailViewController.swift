@@ -8,14 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    var pokemonDetail:String?
+class PokemonDetailViewController: UIViewController {
+    var pokemonDetail:PokemonList?
+    
     
     @IBOutlet weak var pokImg: UIImageView!
     @IBOutlet weak var pokemonName: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        pokemonName.text = pokemonDetail
+        pokemonName.text = pokemonDetail?.name
+        pokImg.image = pokemonDetail?.getImage()
     }
 
     override func didReceiveMemoryWarning() {

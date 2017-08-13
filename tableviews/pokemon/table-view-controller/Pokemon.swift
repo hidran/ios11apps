@@ -7,11 +7,32 @@
 //
 import Foundation
 import UIKit
-let cachImge = NSCache<AnyObject, AnyObject>()
+let imageCached = NSCache<AnyObject, AnyObject>()
 struct PokemonList:Decodable{
     var name:String
     var url:String
-   
+    func getImage() -> UIImage? {
+        let apiUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
+        let urlPieces = url.split(separator: "/")
+        let pokId = urlPieces[urlPieces.count-1 ]
+        
+        guard  let imgUrl = URL(string: apiUrl + "\(pokId).png") else {
+            return nil
+        }
+        if let cachedImg = imageCached.object(forKey: imgUrl as AnyObject) as? UIImage{
+            print("image trovata")
+            return cachedImg
+        }
+        
+        guard let imgData = try? Data(contentsOf: imgUrl) else {
+            return nil
+        }
+        guard let pokImage = UIImage(data: imgData) else {
+        return nil
+        }
+        imageCached.setObject(pokImage, forKey: imgUrl as AnyObject)
+        return pokImage
+    }
 }
 
 struct PokemonResponse:Decodable {
@@ -32,7 +53,7 @@ struct Pokemon {
         let urlSession = URLSession.shared
         
        let task =  urlSession.dataTask(with: url!) {
-            
+        
             (data, response, error) in
             if error != nil {
                 print(error!)
