@@ -8,17 +8,76 @@
 import Foundation
 import UIKit
 let imageCached = NSCache<AnyObject, AnyObject>()
-struct PokemonList:Decodable{
+
+func getDocDirectory() -> URL? {
+    guard let docDirectory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
+        return nil
+    
+    }
+    return docDirectory
+}
+func getImgDir() -> URL? {
+    
+    let fm = FileManager.default
+    
+    guard let docDir =  getDocDirectory() else { return nil}
+    
+    let imgUrl = docDir.appendingPathComponent("images")
+    
+    if fm.fileExists(atPath: imgUrl.path)  {
+        return imgUrl
+    }
+    
+        do {
+            try FileManager.default.createDirectory(at: imgUrl, withIntermediateDirectories: false, attributes: nil)
+          return imgUrl
+        } catch {
+            return nil
+        }
+    
+}
+struct PokemonList:Decodable {
     var name:String
     var url:String
-    func getImage() -> UIImage? {
-        let apiUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
+    
+     let apiUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
+    
+    func getPokId() -> Int {
         let urlPieces = url.split(separator: "/")
-        let pokId = urlPieces[urlPieces.count-1 ]
+        
+        let pokId = String(urlPieces[urlPieces.count-1 ])
+        return Int(pokId) ?? 0
+    }
+    func getImgUrl() -> URL? {
+        let pokId = getPokId()
         
         guard  let imgUrl = URL(string: apiUrl + "\(pokId).png") else {
             return nil
         }
+        return imgUrl
+    }
+    
+    func getFileUrlImg() -> URL? {
+      
+        guard let imgDir = getImgDir() else { return nil }
+        
+     return imgDir.appendingPathComponent(String(getPokId())).appendingPathExtension("png")
+        
+    }
+    func getSavedImg() -> UIImage? {
+        guard let imgUrl = getFileUrlImg() else { return nil}
+        guard let imgData = try? Data(contentsOf: imgUrl) else {return nil}
+        
+        return UIImage(data: imgData)
+    }
+    func getImage() -> UIImage? {
+        if let savedImg = getSavedImg() {
+            return savedImg
+        }
+        guard let imgUrl = getImgUrl() else {
+            return nil
+        }
+        
         if let cachedImg = imageCached.object(forKey: imgUrl as AnyObject) as? UIImage{
             print("image trovata")
             return cachedImg
@@ -27,10 +86,13 @@ struct PokemonList:Decodable{
         guard let imgData = try? Data(contentsOf: imgUrl) else {
             return nil
         }
+        if let imgUrl =  getFileUrlImg() {
+            try? imgData.write(to:imgUrl)
+        }
         guard let pokImage = UIImage(data: imgData) else {
         return nil
         }
-        imageCached.setObject(pokImage, forKey: imgUrl as AnyObject)
+       
         return pokImage
     }
 }
@@ -44,9 +106,49 @@ struct PokemonResponse:Decodable {
 
 struct Pokemon {
     static let pokemonApi = "https://pokeapi.co/api/v2/pokemon"
-    static let pokemonCount = 100
+    static let pokemonCount = 10000
     
+    static func  getPokFileUrl() -> URL? {
+        guard let  docUrl = getDocDirectory() else {
+            return nil
+        }
+        return docUrl.appendingPathComponent("pokemonlist").appendingPathExtension("json")
+    }
+    static func getPokemonsFile() -> PokemonResponse? {
+        
+      
+        
+        guard let fileUrl = getPokFileUrl()  else {
+            return nil
+         }
+        
+        if FileManager.default.fileExists(atPath: fileUrl.path) {
+            
+            guard let data = try? Data(contentsOf: fileUrl) else {
+                return nil
+            }
+              let decoder = JSONDecoder()
+            guard  let jsonData = try? decoder.decode(PokemonResponse.self, from: data) else {
+                return nil
+            }
+            return jsonData
+        } else {
+            return nil
+        }
+        
+    }
     static func getPokemons(_ pokemonCtrl:PokenTableTableViewController )  {
+        
+        
+        
+        if let pokResponse = getPokemonsFile() {
+             print("data from file")
+            pokemonCtrl.pokemons = pokResponse.results
+            pokemonCtrl.tableView.reloadData()
+            return
+            
+        }
+          let decoder = JSONDecoder()
         
         let url = URL(string: pokemonApi+"?limit=\(pokemonCount)")
         
@@ -68,10 +170,18 @@ struct Pokemon {
             print(httpResponse)
             return
         }
-        
+        guard let data = data else {
+            
+            return
+        }
+        if let fileUrl = getPokFileUrl()  {
+         try? data.write(to: fileUrl)
+        }
            // parse data in json
-        let decoder = JSONDecoder()
-         let jsonData = try? decoder.decode(PokemonResponse.self, from: data!)
+     
+        
+         let jsonData = try? decoder.decode(PokemonResponse.self, from: data)
+        
         if jsonData != nil {
             DispatchQueue.main.async {
                 pokemonCtrl.pokemons = (jsonData?.results)!
