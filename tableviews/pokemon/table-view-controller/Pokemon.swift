@@ -72,16 +72,14 @@ struct PokemonList:Decodable {
     }
     func getImage() -> UIImage? {
         if let savedImg = getSavedImg() {
+              print("image trovata")
             return savedImg
         }
         guard let imgUrl = getImgUrl() else {
             return nil
         }
         
-        if let cachedImg = imageCached.object(forKey: imgUrl as AnyObject) as? UIImage{
-            print("image trovata")
-            return cachedImg
-        }
+        
         
         guard let imgData = try? Data(contentsOf: imgUrl) else {
             return nil
