@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bMv-xW-QDH">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="MarkerFeltThin.ttf">
+            <string>MarkerFelt-Thin</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Pokémon list-->
+        <scene sceneID="pn4-cP-d9c">
+            <objects>
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="rfo-GR-hKZ" customClass="PokenTableTableViewController" customModule="table_view_controller" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="a5M-Kb-1eB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="dTK-Is-0y4" style="IBUITableViewCellStyleDefault" id="sCH-f5-TIA">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" tableViewCell="sCH-f5-TIA" id="Whr-6R-Vfh">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dTK-Is-0y4">
+                                            <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="rfo-GR-hKZ" id="ayR-ZN-ClE"/>
+                            <outlet property="delegate" destination="rfo-GR-hKZ" id="RJV-S5-L99"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Pokémon list" id="G90-9z-cch"/>
+                    <connections>
+                        <segue destination="hVE-3e-gKN" kind="show" identifier="pokDetail" id="gyI-iA-dUX"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tQb-iK-rHH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-215.19999999999999" y="-330.58470764617692"/>
+        </scene>
+        <!--Pokemon Detail View Controller-->
+        <scene sceneID="SK8-f8-oFC">
+            <objects>
+                <viewController id="hVE-3e-gKN" customClass="PokemonDetailViewController" customModule="table_view_controller" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I6i-nU-cQW"/>
+                        <viewControllerLayoutGuide type="bottom" id="NYX-O6-r7e"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Tmx-di-LlZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tOw-Bx-yQJ">
+                                <rect key="frame" x="113" y="104" width="150" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POKEMON NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBH-QD-uG7">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="70"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="31"/>
+                                        <color key="textColor" red="0.40497502671309915" green="1" blue="0.20687886442189729" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mex-pt-bF2">
+                                        <rect key="frame" x="48" y="80" width="54" height="70"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="9hc-p8-edR"/>
+                                    <constraint firstItem="yBH-QD-uG7" firstAttribute="leading" secondItem="tOw-Bx-yQJ" secondAttribute="leading" id="HCV-ou-YkQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="yBH-QD-uG7" secondAttribute="trailing" id="L38-ab-UAf"/>
+                                    <constraint firstAttribute="height" constant="150" id="cSh-aw-rB2"/>
+                                    <constraint firstItem="yBH-QD-uG7" firstAttribute="top" secondItem="tOw-Bx-yQJ" secondAttribute="top" id="oFk-1c-koD"/>
+                                    <constraint firstItem="mex-pt-bF2" firstAttribute="leading" secondItem="tOw-Bx-yQJ" secondAttribute="leading" constant="48" id="sHF-oZ-nK8"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tOw-Bx-yQJ" firstAttribute="centerX" secondItem="Tmx-di-LlZ" secondAttribute="centerX" id="FfF-tG-zEW"/>
+                            <constraint firstItem="tOw-Bx-yQJ" firstAttribute="top" secondItem="I6i-nU-cQW" secondAttribute="bottom" constant="40" id="KhM-ER-0ge"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pokImg" destination="mex-pt-bF2" id="Ozh-tU-1pg"/>
+                        <outlet property="pokemonName" destination="yBH-QD-uG7" id="Exz-6s-MxL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1hz-mu-KuA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1252" y="-611.24437781109452"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gun-Xj-QaW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bMv-xW-QDH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eEn-33-jow">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rfo-GR-hKZ" kind="relationship" relationship="rootViewController" id="C0L-5T-thg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yoO-rk-NjG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-897" y="-403"/>
+        </scene>
+    </scenes>
+</document>
